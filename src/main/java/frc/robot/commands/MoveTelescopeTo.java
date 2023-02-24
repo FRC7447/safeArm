@@ -5,23 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Telescope;
 
-public class MoveArm extends CommandBase {
-  Arm m_arm;
-  double m_anglePosition;
-  /** Creates a new moveArm. */
-  public MoveArm(Arm a, double anglePosition) {
-    m_arm = a;
-    m_anglePosition = anglePosition; 
-    addRequirements(m_arm);
+public class MoveTelescopeTo extends CommandBase {
+  Telescope m_telescope;
+  double _position;
+  /** Creates a new MoveTelescopeTo. */
+  public MoveTelescopeTo(Telescope t, double position) {
+    m_telescope = t;
+    _position = position;
+    addRequirements(t);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_arm.setGoal(m_anglePosition);
+    m_telescope.extendTelescopeTo(_position);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,6 +35,6 @@ public class MoveArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_arm.isMoving();
+    return false;
   }
 }

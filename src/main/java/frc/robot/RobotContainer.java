@@ -6,9 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants.ArmConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.extendTelescope;
-import frc.robot.commands.moveArm;
-import frc.robot.commands.retractTelescope;
+import frc.robot.commands.ExtendTelescope;
+import frc.robot.commands.MoveArm;
+import frc.robot.commands.RetractTelescope;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Telescope;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,12 +34,12 @@ public class RobotContainer {
   Telescope m_Telescope;
   Arm m_arm;
 
-  moveArm moveTo3Pt;
-  moveArm moveTo2Pt;
-  moveArm moveTo1Pt;
-  moveArm moveToRest;
-  extendTelescope m_ExtendTelescope;
-  retractTelescope m_RetractTelescope;
+  MoveArm moveTo3Pt;
+  MoveArm moveTo2Pt;
+  MoveArm moveTo1Pt;
+  MoveArm moveToRest;
+  ExtendTelescope m_ExtendTelescope;
+  RetractTelescope m_RetractTelescope;
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
@@ -51,12 +51,12 @@ public class RobotContainer {
   public RobotContainer() {
     m_arm = new Arm();
     m_Telescope = new Telescope();
-    moveTo3Pt = new moveArm(m_arm, Constants.Pt3Position);
-    moveTo2Pt = new moveArm(m_arm, Constants.Pt2Position);
-    moveTo1Pt = new moveArm(m_arm, Constants.Pt1Position);
-    moveToRest = new moveArm(m_arm, Constants.RestPosition);
-    m_ExtendTelescope = new extendTelescope(m_Telescope);
-    m_RetractTelescope = new retractTelescope(m_Telescope);
+    moveTo3Pt = new MoveArm(m_arm, Constants.Pt3Position);
+    moveTo2Pt = new MoveArm(m_arm, Constants.Pt2Position);
+    moveTo1Pt = new MoveArm(m_arm, Constants.Pt1Position);
+    moveToRest = new MoveArm(m_arm, Constants.RestPosition);
+    m_ExtendTelescope = new ExtendTelescope(m_Telescope);
+    m_RetractTelescope = new RetractTelescope(m_Telescope);
 
     driver = new Joystick(0);
     //limelight = new Limelight();

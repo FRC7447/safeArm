@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.Faults;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
@@ -16,19 +18,34 @@ import frc.robot.Constants;
 public class Telescope extends SubsystemBase {
   TalonSRX m_telescope;
   Encoder telescopeEncoder;
+
+  Faults m_faults = new Faults();
   /** Creates a new telescope. */
   public Telescope() {
     m_telescope = new TalonSRX(Constants.TelescopeConstants.telescopeID);
-    telescopeEncoder = new Encoder(0, 1);
-    telescopeEncoder.reset();
-    telescopeEncoder.setDistancePerPulse(8.0);
+    m_telescope.setNeutralMode(NeutralMode.Brake);
+    m_telescope.configNeutralDeadband(0.001); // 0.1%
+    m_telescope.configOpenloopRamp(0.5); // 0.5 seconds from neutral to full output (during open-loop control)
+    m_telescope.configClosedloopRamp(0); // 0 disables ramping (during closed-loop control)
+    m_telescope.setSensorPhase(false); // May need to swap!!!
+    
+    m_telescope.config_kP(0, 0.0);
+    m_telescope.config_kI(0, 0.0);
+    m_telescope.config_kD(0, 0.0);
 
-    m_telescope.setSelectedSensorPosition(0.0);
+    m_telescope.configForwardSoftLimitThreshold(Constants.TelescopeConstants.telescopeUpperLimit, 0);
+    m_telescope.configReverseSoftLimitThreshold(Constants.TelescopeConstants.telescopeLowerLimit, 0);
+    m_telescope.configForwardSoftLimitEnable(true, 0);
+    m_telescope.configReverseSoftLimitEnable(true, 0);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("telescope encoder: ", m_telescope.getSelectedSensorPosition());
+    m_telescope.getFaults(m_faults);
+    System.out.println("Sensor Vel:" + m_telescope.getSelectedSensorVelocity());
+    System.out.println("Sensor Pos:" + m_telescope.getSelectedSensorPosition());
+    System.out.println("Out %" + m_telescope.getMotorOutputPercent());
+    System.out.println("Out Of Phase:" + m_faults.SensorOutOfPhase);
     // This method will be called once per scheduler run
   }
 
@@ -40,23 +57,27 @@ public class Telescope extends SubsystemBase {
     }
   }
 
+  public void extendTelescopeTo(double desiredPosition) {
+    m_telescope.set(TalonSRXControlMode.Position, desiredPosition);
+  }
+
   public void stopTelescope() {
     m_telescope.set(TalonSRXControlMode.PercentOutput, 0.0);
   }
 
-  public boolean getTopSwitch() {
-    if(telescopeEncoder.getDistance() >= Constants.TelescopeConstants.telescopeUpperLimit) {
-      return true;
-    }
+  // public boolean getTopSwitch() {
+  //   if(telescopeEncoder.getDistance() >= Constants.TelescopeConstants.telescopeUpperLimit) {
+  //     return true;
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
 
-  public boolean getBottomSwitch() {
-    if(telescopeEncoder.getDistance() <= Constants.TelescopeConstants.telescopeLowerLimit) {
-      return true;
-    } 
+  // public boolean getBottomSwitch() {
+  //   if(telescopeEncoder.getDistance() <= Constants.TelescopeConstants.telescopeLowerLimit) {
+  //     return true;
+  //   } 
 
-    return false;
-  }
+  //   return false;
+  // }
 }

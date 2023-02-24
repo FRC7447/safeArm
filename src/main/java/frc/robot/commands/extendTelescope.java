@@ -7,13 +7,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Telescope;
 
-public class extendTelescope extends CommandBase {
+public class ExtendTelescope extends CommandBase {
   Telescope m_telescope;
   boolean finish;
   /** Creates a new extendTelescope. */
-  public extendTelescope(Telescope t) {
+  public ExtendTelescope(Telescope t) {
     m_telescope = t;
-    addRequirements(m_telescope);
+    addRequirements(t);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,13 +26,7 @@ public class extendTelescope extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_telescope.getTopSwitch()) {
-      m_telescope.stopTelescope();
-      finish = true;
-    }
-    else {
-      m_telescope.moveTelescope(true);
-    }
+    m_telescope.moveTelescope(true);
   }
 
   // Called once the command ends or is interrupted.
