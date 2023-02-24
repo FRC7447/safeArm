@@ -44,7 +44,7 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     curEncoderPos = armEncoder.getAbsolutePosition();
-    encoderRate = (curEncoderPos - encoderPos) / 60;
+    // encoderRate = (curEncoderPos - encoderPos) / 60;
     encoderPos = curEncoderPos;
 
     double pidOut = armPID.calculate(armEncoder.getAbsolutePosition(), goal);

@@ -23,20 +23,25 @@ public class Telescope extends SubsystemBase {
   /** Creates a new telescope. */
   public Telescope() {
     m_telescope = new TalonSRX(Constants.TelescopeConstants.telescopeID);
+    m_telescope.configFactoryDefault(0);
+    // m_telescope.configSelectedFeedbackSensor(); FILL OUT AFTER KNOWING WHAT TYPE OF ENCODER
+
     m_telescope.setNeutralMode(NeutralMode.Brake);
     m_telescope.configNeutralDeadband(0.001); // 0.1%
     m_telescope.configOpenloopRamp(0.5); // 0.5 seconds from neutral to full output (during open-loop control)
     m_telescope.configClosedloopRamp(0); // 0 disables ramping (during closed-loop control)
     m_telescope.setSensorPhase(false); // May need to swap!!!
     
-    m_telescope.config_kP(0, 0.0);
-    m_telescope.config_kI(0, 0.0);
-    m_telescope.config_kD(0, 0.0);
+    m_telescope.config_kP(0, Constants.TelescopeConstants.telescopeKP);
+    m_telescope.config_kI(0, Constants.TelescopeConstants.telescopeKI);
+    m_telescope.config_kD(0, Constants.TelescopeConstants.telescopeKD);
 
     m_telescope.configForwardSoftLimitThreshold(Constants.TelescopeConstants.telescopeUpperLimit, 0);
     m_telescope.configReverseSoftLimitThreshold(Constants.TelescopeConstants.telescopeLowerLimit, 0);
     m_telescope.configForwardSoftLimitEnable(true, 0);
     m_telescope.configReverseSoftLimitEnable(true, 0);
+
+    resetTelescope();
   }
 
   @Override
@@ -63,6 +68,10 @@ public class Telescope extends SubsystemBase {
 
   public void stopTelescope() {
     m_telescope.set(TalonSRXControlMode.PercentOutput, 0.0);
+  }
+
+  public void resetTelescope() {
+    m_telescope.setSelectedSensorPosition(0.0, 0, 0);
   }
 
   // public boolean getTopSwitch() {

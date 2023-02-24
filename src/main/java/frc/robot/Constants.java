@@ -47,5 +47,9 @@ public final class Constants {
     public static final double telescopeUpperLimit = 400.0;
     public static final double telescopeLowerLimit = 0.0;
     public static final double telescopeSpeed = 0.5;
+
+    public static final double telescopeKP = 0.0; 
+    public static final double telescopeKI = 0.0;
+    public static final double telescopeKD = 0.0;
   }
 }
