@@ -18,16 +18,29 @@ public final class Constants {
   public static final int rTab = 3;
   public static final int lTab = 4;
 
-  public static final double Pt3Position = 0.0;
-  public static final double Pt2Position = 0.0;
-  public static final double Pt1Position = 0.0;
-  public static final double RestPosition = 0.0;
+  public static class WristConstants {
+    // For auton commands
+    public static final double Pt3PositionWrist = 0.0;
+    public static final double Pt2PositionWrist = 0.0;
+    public static final double Pt1PositionWrist = 0.0;
+    public static final double TopPositionWrist = 0.0;
 
-  public static class ArmConstants {
-    // ID ASSIGNMENT
-    public static final int ArmID = 0;
     public static final int wristID = 0;
     public static final int intakeID = 0;
+    public static final double wristkP = 0.0;
+    public static final double wristkI = 0.0;
+    public static final double wristkD = 0.0;
+  }
+
+  public static class ArmConstants {
+    // For auton commands
+    public static final double Pt3PositionArm = 0.0;
+    public static final double Pt2PositionArm = 0.0;
+    public static final double Pt1PositionArm = 0.0;
+    public static final double RestPositionArm = 0.0;
+
+    // ID ASSIGNMENT
+    public static final int ArmID = 0;
     public static final int ArmEncoderID = 0;
 
     // TUNE FEEDFORWARD AND PID VALUES
@@ -44,6 +57,11 @@ public final class Constants {
   }
 
   public static class TelescopeConstants {
+    // For auton commands
+    public static final double fullyRetractedPosition = 0.0;
+    public static final double fullyExtendedPosition = 0.0;
+    public static final double groundIntakePosition = 0.0;
+
     public static final int telescopeID = 0;
     public static final double telescopeUpperLimit = 0.0;
     public static final double telescopeLowerLimit = 0.0;

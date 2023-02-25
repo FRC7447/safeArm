@@ -28,6 +28,7 @@ public class Telescope extends SubsystemBase {
     m_telescope = new TalonSRX(Constants.TelescopeConstants.telescopeID);
     m_telescope.configFactoryDefault(0);
     m_telescope.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    
     m_telescope.setNeutralMode(NeutralMode.Brake);
     m_telescope.configNeutralDeadband(0.001); // 0.1%
     m_telescope.configOpenloopRamp(0.5); // 0.5 seconds from neutral to full output (during open-loop control)
