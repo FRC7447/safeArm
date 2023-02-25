@@ -27,6 +27,7 @@ public final class Constants {
     // ID ASSIGNMENT
     public static final int ArmID = 0;
     public static final int wristID = 0;
+    public static final int intakeID = 0;
     public static final int ArmEncoderID = 0;
 
     // TUNE FEEDFORWARD AND PID VALUES
@@ -44,7 +45,7 @@ public final class Constants {
 
   public static class TelescopeConstants {
     public static final int telescopeID = 0;
-    public static final double telescopeUpperLimit = 400.0;
+    public static final double telescopeUpperLimit = 0.0;
     public static final double telescopeLowerLimit = 0.0;
     public static final double telescopeSpeed = 0.5;
 

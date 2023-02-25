@@ -1,3 +1,4 @@
+//system.out.println("Brandyn is the best");
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -5,12 +6,14 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.Faults;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -24,8 +27,7 @@ public class Telescope extends SubsystemBase {
   public Telescope() {
     m_telescope = new TalonSRX(Constants.TelescopeConstants.telescopeID);
     m_telescope.configFactoryDefault(0);
-    // m_telescope.configSelectedFeedbackSensor(); FILL OUT AFTER KNOWING WHAT TYPE OF ENCODER
-
+    m_telescope.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     m_telescope.setNeutralMode(NeutralMode.Brake);
     m_telescope.configNeutralDeadband(0.001); // 0.1%
     m_telescope.configOpenloopRamp(0.5); // 0.5 seconds from neutral to full output (during open-loop control)
@@ -46,6 +48,7 @@ public class Telescope extends SubsystemBase {
 
   @Override
   public void periodic() {
+
     m_telescope.getFaults(m_faults);
     System.out.println("Sensor Vel:" + m_telescope.getSelectedSensorVelocity());
     System.out.println("Sensor Pos:" + m_telescope.getSelectedSensorPosition());
