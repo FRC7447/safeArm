@@ -28,6 +28,8 @@ public final class Constants {
     public static final double Pt2PositionWrist = 0.0;
     public static final double Pt1PositionWrist = 0.0;
     public static final double TopPositionWrist = 0.0;
+    public static final double wristUpperLimit = 0.0;
+    public static final double wristLowerLimit = 0.0;
 
     public static final int wristID = 0;
     public static final int intakeID = 0;

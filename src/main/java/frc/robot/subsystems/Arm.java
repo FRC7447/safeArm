@@ -11,6 +11,7 @@ import frc.robot.Constants;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
@@ -44,6 +45,7 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     curEncoderPos = armEncoder.getAbsolutePosition();
+    SmartDashboard.putNumber("Arm Encoder Position: ", curEncoderPos);
     // encoderRate = (curEncoderPos - encoderPos) / 60;
     encoderPos = curEncoderPos;
 

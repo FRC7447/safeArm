@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -40,13 +41,15 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic() {
     encoderPos = m_wristEncoder.getAbsolutePosition();
+    SmartDashboard.putNumber("Wrist Encoder Postiion: ", encoderPos);
+    
     pidOut = wristPID.calculate(m_wristEncoder.getAbsolutePosition(), goal);
     output = pidOut;
     // This method will be called once per scheduler run
-    if (encoderPos > Constants.ArmConstants.armUpperLimit) {
+    if (encoderPos > Constants.WristConstants.wristUpperLimit) {
       output = 0.0;
       stop();
-    } else if (encoderPos < Constants.ArmConstants.armLowerLimit) {
+    } else if (encoderPos < Constants.WristConstants.wristLowerLimit) {
       output = 0.0;
       stop();
     }

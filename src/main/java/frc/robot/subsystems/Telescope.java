@@ -49,7 +49,6 @@ public class Telescope extends SubsystemBase {
 
   @Override
   public void periodic() {
-
     m_telescope.getFaults(m_faults);
     System.out.println("Sensor Vel:" + m_telescope.getSelectedSensorVelocity());
     System.out.println("Sensor Pos:" + m_telescope.getSelectedSensorPosition());
