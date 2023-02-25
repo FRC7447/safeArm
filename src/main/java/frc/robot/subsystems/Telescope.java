@@ -39,6 +39,9 @@ public class Telescope extends SubsystemBase {
     m_telescope.config_kI(0, Constants.TelescopeConstants.telescopeKI);
     m_telescope.config_kD(0, Constants.TelescopeConstants.telescopeKD);
 
+    m_telescope.configVoltageCompSaturation(12); // "full output" will now scale to x volts
+    m_telescope.enableVoltageCompensation(true); // turn on/off feature
+
     m_telescope.configForwardSoftLimitThreshold(Constants.TelescopeConstants.telescopeUpperLimit, 0);
     m_telescope.configReverseSoftLimitThreshold(Constants.TelescopeConstants.telescopeLowerLimit, 0);
     m_telescope.configForwardSoftLimitEnable(true, 0);
