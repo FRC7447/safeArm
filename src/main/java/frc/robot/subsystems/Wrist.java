@@ -67,4 +67,8 @@ public class Wrist extends SubsystemBase {
   public void setGoal(double desiredPosition) {
     goal = desiredPosition;
   }
+
+  public void setWristSpeed(double wristSpeed) {
+    m_wrist.set(ControlMode.PercentOutput, wristSpeed);
+  }
 }

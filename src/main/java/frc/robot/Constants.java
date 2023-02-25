@@ -19,6 +19,10 @@ public final class Constants {
   public static final int lTab = 4;
 
   public static class WristConstants {
+    // For Teleop
+    public static final double upWristSpeed = 0.2;
+    public static final double downWristSpeed = -0.2;
+
     // For auton commands
     public static final double Pt3PositionWrist = 0.0;
     public static final double Pt2PositionWrist = 0.0;
@@ -33,7 +37,7 @@ public final class Constants {
   }
 
   public static class ArmConstants {
-    // For Telep
+    // For Teleop
     public static final double upArmSpeed = 0.2;
     public static final double downArmSpeed = -0.2;
 
@@ -69,7 +73,7 @@ public final class Constants {
     public static final int telescopeID = 0;
     public static final double telescopeUpperLimit = 0.0;
     public static final double telescopeLowerLimit = 0.0;
-    public static final double telescopeSpeed = 0.5;
+    public static final double telescopeSpeed = 0.2;
 
     public static final double telescopeKP = 0.0; 
     public static final double telescopeKI = 0.0;

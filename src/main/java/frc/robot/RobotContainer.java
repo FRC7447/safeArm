@@ -11,6 +11,7 @@ import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmManually;
 import frc.robot.commands.MoveTelescopeTo;
 import frc.robot.commands.MoveWrist;
+import frc.robot.commands.MoveWristManually;
 import frc.robot.commands.RetractTelescope;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Telescope;
@@ -54,6 +55,8 @@ public class RobotContainer {
   MoveWrist moveTo2PtWrist;
   MoveWrist moveTo1PtWrist;
   MoveWrist moveToTopWrist;
+  MoveWristManually moveWristUp;
+  MoveWristManually moveWristDown;
 
   ExtendTelescope m_ExtendTelescope;
   RetractTelescope m_RetractTelescope;
@@ -87,6 +90,8 @@ public class RobotContainer {
     moveTo2PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt2PositionWrist);
     moveTo1PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt1PositionWrist);
     moveToTopWrist = new MoveWrist(m_wrist, Constants.WristConstants.TopPositionWrist);
+    moveWristDown = new MoveWristManually(m_wrist, Constants.WristConstants.downWristSpeed);
+    moveWristUp = new MoveWristManually(m_wrist, Constants.WristConstants.upWristSpeed);
 
     driver = new Joystick(0);
     //limelight = new Limelight();
@@ -125,6 +130,8 @@ public class RobotContainer {
     //TELEOP COMMANDS TO TEST
     // moveArmDown
     // moveArmUp
+    // moveWristDown
+    // moveWristUp
 
     //AUTON COMMANDS TO TEST
     // fullyRetracted
@@ -135,6 +142,9 @@ public class RobotContainer {
     // moveTo2PtWrist
     // moveTo1PtWrist
     // moveToTopWrist
+
+    // moveTo2PtArm
+    // moveToRestArm
   }
 
   /**
