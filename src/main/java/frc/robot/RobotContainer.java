@@ -8,6 +8,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExtendTelescope;
 import frc.robot.commands.MoveArm;
+import frc.robot.commands.MoveArmManually;
 import frc.robot.commands.MoveTelescopeTo;
 import frc.robot.commands.MoveWrist;
 import frc.robot.commands.RetractTelescope;
@@ -42,6 +43,8 @@ public class RobotContainer {
   MoveArm moveTo2PtArm;
   MoveArm moveTo1PtArm;
   MoveArm moveToRestArm;
+  MoveArmManually moveArmUp;
+  MoveArmManually moveArmDown;
 
   MoveTelescopeTo fullyRetracted;
   MoveTelescopeTo fullyExtended;
@@ -66,10 +69,13 @@ public class RobotContainer {
     m_arm = new Arm();
     m_Telescope = new Telescope();
     m_wrist = new Wrist();
+
     moveTo3PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt3PositionArm);
     moveTo2PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt2PositionArm);
     moveTo1PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt1PositionArm);
     moveToRestArm = new MoveArm(m_arm, Constants.ArmConstants.RestPositionArm);
+    moveArmDown = new MoveArmManually(m_arm, Constants.ArmConstants.downArmSpeed);
+    moveArmUp = new MoveArmManually(m_arm, Constants.ArmConstants.upArmSpeed);
 
     fullyRetracted = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyRetractedPosition);
     fullyExtended = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyExtendedPosition);
@@ -110,11 +116,17 @@ public class RobotContainer {
     // // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
     lTrigger.onTrue(m_ExtendTelescope);
     rTrigger.onTrue(m_RetractTelescope);
     lTab.onTrue(moveTo3PtArm);
     rTab.onTrue(moveTo1PtArm);
     
+    //TELEOP COMMANDS TO TEST
+    // moveArmDown
+    // moveArmUp
+
+    //AUTON COMMANDS TO TEST
     // fullyRetracted
     // fullyExtended
     // groundIntakePos

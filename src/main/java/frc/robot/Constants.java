@@ -33,6 +33,10 @@ public final class Constants {
   }
 
   public static class ArmConstants {
+    // For Telep
+    public static final double upArmSpeed = 0.2;
+    public static final double downArmSpeed = -0.2;
+
     // For auton commands
     public static final double Pt3PositionArm = 0.0;
     public static final double Pt2PositionArm = 0.0;

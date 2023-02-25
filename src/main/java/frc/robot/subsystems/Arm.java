@@ -76,6 +76,10 @@ public class Arm extends SubsystemBase {
     m_arm.stopMotor();
   }
 
+  public void setArmSpeed(double armSpeed) {
+    m_arm.set(armSpeed);
+  }
+
   public boolean isMoving() {
     return output != 0.0;
   }
