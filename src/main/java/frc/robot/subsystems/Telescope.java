@@ -44,8 +44,8 @@ public class Telescope extends SubsystemBase {
 
     m_telescope.configForwardSoftLimitThreshold(Constants.TelescopeConstants.telescopeUpperLimit, 0);
     m_telescope.configReverseSoftLimitThreshold(Constants.TelescopeConstants.telescopeLowerLimit, 0);
-    m_telescope.configForwardSoftLimitEnable(true, 0);
-    m_telescope.configReverseSoftLimitEnable(true, 0);
+    m_telescope.configForwardSoftLimitEnable(false, 0);
+    m_telescope.configReverseSoftLimitEnable(false, 0);
 
     resetTelescope();
   }

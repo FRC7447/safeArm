@@ -62,8 +62,8 @@ public final class Constants {
     public static final double armkG = 0.0;
     public static final double armkV = 0.0;
 
-    public static final double armUpperLimit = 0.0;
-    public static final double armLowerLimit = 0.0;
+    public static final float armUpperLimit = 0.0f;
+    public static final float armLowerLimit = 0.0f;
   }
 
   public static class TelescopeConstants {
