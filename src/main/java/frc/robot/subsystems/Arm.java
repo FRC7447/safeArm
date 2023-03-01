@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxPIDController.AccelStrategy;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkMaxPIDController;
@@ -44,6 +45,10 @@ public class Arm extends SubsystemBase {
     goal = m_armEncoder.getPosition();
     m_armPID = m_arm.getPIDController();
     m_armPID.setFeedbackDevice(m_armEncoder);
+
+    m_armPID.setSmartMotionMaxAccel(656.0, 0);
+    m_armPID.setSmartMotionAccelStrategy(AccelStrategy.kTrapezoidal, 0);
+    m_armPID.setSmartMotionMaxVelocity(1000, 0);
 
     m_arm.enableSoftLimit(SoftLimitDirection.kForward, true);
     m_arm.enableSoftLimit(SoftLimitDirection.kReverse, true);

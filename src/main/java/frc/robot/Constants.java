@@ -58,9 +58,7 @@ public final class Constants {
     public static final double armKI = 0.0;
     public static final double armKD = 0.0;
 
-    public static final double armkS = 0.0; 
-    public static final double armkG = 0.0;
-    public static final double armkV = 0.0;
+    public static final double armFF = 0.0;
 
     public static final float armUpperLimit = 0.0f;
     public static final float armLowerLimit = 0.0f;
