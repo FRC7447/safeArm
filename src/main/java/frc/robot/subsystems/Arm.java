@@ -42,6 +42,8 @@ public class Arm extends SubsystemBase {
     m_arm = new CANSparkMax(Constants.ArmConstants.ArmID, MotorType.kBrushless);
     m_arm.setIdleMode(IdleMode.kBrake);
     m_armEncoder = m_arm.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+    m_armEncoder.setPositionConversionFactor(360);
+    m_armEncoder.setVelocityConversionFactor(360);
     goal = m_armEncoder.getPosition();
     m_armPID = m_arm.getPIDController();
     m_armPID.setFeedbackDevice(m_armEncoder);
@@ -70,7 +72,7 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("Feed Forward", kFF);
     SmartDashboard.putNumber("Max Output", kMaxOutput);
     SmartDashboard.putNumber("Min Output", kMinOutput);
-    SmartDashboard.putNumber("Set Rotations", goal);
+    SmartDashboard.putNumber("Set Degrees", goal);
   }
 
   @Override
