@@ -85,4 +85,12 @@ public final class Constants {
     public static final double telescopeKI = 0.0;
     public static final double telescopeKD = 0.0;
   }
+
+  public static class ClawConstants {
+    public static final int clawID = 0;
+
+    public static final int analogID = 0;
+    public static final int kUltrasonicPingPort = 0;
+    public static final int kUltrasonicEchoPort = 0;
+  }
 }
