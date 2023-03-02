@@ -13,10 +13,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final int rTrigger = 5;
-  public static final int lTrigger = 6;
-  public static final int rTab = 3;
-  public static final int lTab = 4;
+  public static class ArmJoystickConstants {
+    public static final int joystickID = 1;
+    public static final int rTrigger = 5;
+    public static final int lTrigger = 6;
+    public static final int rTab = 3;
+    public static final int lTab = 4;
+  }
 
   public static class WristConstants {
     // For Teleop

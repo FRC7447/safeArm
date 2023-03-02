@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  Joystick driver;
+  Joystick armJoystick;
 
   Trigger lTrigger;  
   Trigger rTrigger;
@@ -93,12 +93,12 @@ public class RobotContainer {
     moveWristDown = new MoveWristManually(m_wrist, Constants.WristConstants.downWristSpeed);
     moveWristUp = new MoveWristManually(m_wrist, Constants.WristConstants.upWristSpeed);
 
-    driver = new Joystick(0);
+    armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
     //limelight = new Limelight();
-    lTrigger = new JoystickButton(driver, Constants.lTrigger);
-    rTrigger = new JoystickButton(driver, Constants.rTrigger);
-    lTab = new JoystickButton(driver, Constants.lTab);
-    rTab = new JoystickButton(driver, Constants.rTab);
+    lTrigger = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.lTrigger);
+    rTrigger = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.rTrigger);
+    lTab = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.lTab);
+    rTab = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.rTab);
 
     // Configure the trigger bindings
     configureBindings();

@@ -40,12 +40,12 @@ public class Arm extends SubsystemBase {
     
     m_constraints = new TrapezoidProfile.Constraints(
       Constants.ArmConstants.trapezoidMaxVelocity, Constants.ArmConstants.trapezoidMaxAcceleration);
+
     m_armPID = new ProfiledPIDController(
       Constants.ArmConstants.armKP, 
       Constants.ArmConstants.armKI, 
       Constants.ArmConstants.armKD, 
       m_constraints);
-    
   }
 
   @Override
