@@ -19,6 +19,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -27,6 +28,8 @@ public class Arm extends SubsystemBase {
   DutyCycleEncoder m_armEncoder;
   ProfiledPIDController m_armPID;
   double goal = 0.0;
+  double lastSpeed = 0;
+  double lastTime = Timer.getFPGATimestamp();
   ArmFeedforward m_armFeedforward;
   TrapezoidProfile.Constraints m_constraints;
   /** Creates a new arm. */
@@ -49,12 +52,23 @@ public class Arm extends SubsystemBase {
       Constants.ArmConstants.armKI, 
       Constants.ArmConstants.armKD, 
       m_constraints);
+    
   }
 
   @Override
   public void periodic() {
+  }
 
-    m_armPID.setGoal(goal);
+  // Controls a simple motor's position using a SimpleMotorFeedforward
+  // and a ProfiledPIDController
+  public void goToPosition(double goalPosition) {
+    double pidVal = m_armPID.calculate(m_armEncoder.getDistance(), goalPosition);
+    double acceleration = (m_armPID.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+    m_arm.setVoltage(
+        pidVal
+        + m_armFeedforward.calculate(m_armPID.getSetpoint().velocity, acceleration));
+    lastSpeed = m_armPID.getSetpoint().velocity;
+    lastTime = Timer.getFPGATimestamp();
   }
 
   public void setGoal(double newGoal) {
