@@ -6,16 +6,10 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxPIDController.AccelStrategy;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
-import com.revrobotics.SparkMaxLimitSwitch;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMax.SoftLimitDirection;
 
 import frc.robot.Constants;
 import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -27,9 +21,9 @@ public class Arm extends SubsystemBase {
   CANSparkMax m_arm;
   DutyCycleEncoder m_armEncoder;
   ProfiledPIDController m_armPID;
-  double goal = 0.0;
   double lastSpeed = 0;
   double lastTime = Timer.getFPGATimestamp();
+  double curAngle;
   ArmFeedforward m_armFeedforward;
   TrapezoidProfile.Constraints m_constraints;
   /** Creates a new arm. */
@@ -38,8 +32,7 @@ public class Arm extends SubsystemBase {
     m_arm.setIdleMode(IdleMode.kBrake);
 
     m_armEncoder = new DutyCycleEncoder(Constants.ArmConstants.ArmEncoderID);
-    m_armEncoder.setDistancePerRotation(8);
-    m_armEncoder.get();
+    m_armEncoder.setDutyCycleRange(1 / 1025, 1024 / 1025);
 
     m_armFeedforward = new ArmFeedforward(
       Constants.ArmConstants.armkS, Constants.ArmConstants.armkG,
@@ -57,22 +50,25 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    curAngle = m_armEncoder.getAbsolutePosition() * 360;
+
+    SmartDashboard.putNumber("Current Absolute Angle: ", curAngle);
+    SmartDashboard.putNumber("Arm Applied Output", m_arm.getAppliedOutput());
+    SmartDashboard.putNumber("Encoder Offset: ", m_armEncoder.getPositionOffset());
   }
 
   // Controls a simple motor's position using a SimpleMotorFeedforward
   // and a ProfiledPIDController
   public void goToPosition(double goalPosition) {
-    double pidVal = m_armPID.calculate(m_armEncoder.getDistance(), goalPosition);
+    m_armPID.setGoal(goalPosition);
+    double pidVal = m_armPID.calculate(curAngle, goalPosition);
     double acceleration = (m_armPID.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
-    m_arm.setVoltage(
-        pidVal
-        + m_armFeedforward.calculate(m_armPID.getSetpoint().velocity, acceleration));
+
+    if(passedLimits()) m_arm.set(pidVal + m_armFeedforward.calculate(m_armPID.getSetpoint().velocity, acceleration));
+    else m_arm.set(0);
+
     lastSpeed = m_armPID.getSetpoint().velocity;
     lastTime = Timer.getFPGATimestamp();
-  }
-
-  public void setGoal(double newGoal) {
-    goal = newGoal;
   }
 
   public void stop() {
@@ -80,6 +76,12 @@ public class Arm extends SubsystemBase {
   }
 
   public void setArmSpeed(double armSpeed) {
-    m_arm.set(armSpeed);
+    if(passedLimits()) m_arm.set(0);
+    else m_arm.set(armSpeed);
+  }
+
+  public boolean passedLimits() {
+    if(curAngle >= Constants.ArmConstants.armUpperLimit || curAngle <= Constants.ArmConstants.armLowerLimit) return true;
+    else return false;
   }
 }
