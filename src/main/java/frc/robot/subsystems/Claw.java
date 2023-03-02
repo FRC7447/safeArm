@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -21,7 +22,7 @@ public class Claw extends SubsystemBase {
   /** Creates a new Claw. */
   public Claw() {
     m_claw = new CANSparkMax(Constants.ClawConstants.clawID, MotorType.kBrushless);
-    AnalogDistanceSensor = new AnalogPotentiometer(Constants.ClawConstants.analogID, 180, 30);
+    AnalogDistanceSensor = new AnalogPotentiometer(Constants.ClawConstants.analogID, 100, 0);
     UltraDistanceSensor = new Ultrasonic(
       Constants.ClawConstants.kUltrasonicPingPort, 
       Constants.ClawConstants.kUltrasonicEchoPort);
@@ -29,6 +30,9 @@ public class Claw extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Ultra in Inches: ", UltraDistanceSensor.getRangeInches());
+    SmartDashboard.putNumber("Ultra in Milimeters: ", UltraDistanceSensor.getRangeMM());
+    SmartDashboard.putNumber("Analog Distance: ", AnalogDistanceSensor.get());
     // This method will be called once per scheduler run
   }
 
