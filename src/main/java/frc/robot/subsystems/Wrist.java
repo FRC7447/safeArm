@@ -4,74 +4,87 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
+import frc.robot.Constants;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class Wrist extends SubsystemBase {
-  VictorSPX m_wrist;
-  CANSparkMax m_intake;
-  DutyCycleEncoder m_wristEncoder;
-  PIDController wristPID; 
-
-  double goal = 0.0;
-  double encoderPos = 0.0;
-  double pidOut = 0.0;
-  double output = 0.0;
-  
-  /** Creates a new wrist. */
+  CANSparkMax m_Wrist;
+  DutyCycleEncoder m_WristEncoder;
+  PIDController m_WristPID;
+  double goal; 
+  double curAngle;
+  double WristTopLimit;
+  double WristBotLimit;
+  /** Creates a new Wrist. */
   public Wrist() {
-    m_wrist = new VictorSPX(Constants.WristConstants.wristID);
-    wristPID = new PIDController(
+    m_Wrist = new CANSparkMax(Constants.WristConstants.wristID, MotorType.kBrushless);
+    m_Wrist.setIdleMode(IdleMode.kBrake);
+    m_Wrist.enableVoltageCompensation(12);
+
+    m_WristEncoder = new DutyCycleEncoder(Constants.WristConstants.wristEncoderID);
+    m_WristEncoder.setDutyCycleRange(1 / 1025, 1024 / 1025);
+    
+    m_WristPID = new PIDController(
       Constants.WristConstants.wristkP, 
       Constants.WristConstants.wristkI, 
-      Constants.WristConstants.wristkD
-    );
-    // m_intake = new CANSparkMax(Constants.ArmConstants.intakeID, MotorType.kBrushless);
+      Constants.WristConstants.wristkD);
+    
+    WristTopLimit = Constants.WristConstants.wristUpperLimit;
+    WristBotLimit = Constants.WristConstants.wristLowerLimit;
+    SmartDashboard.putNumber("Wrist Top Limit", Constants.WristConstants.wristUpperLimit);
+    SmartDashboard.putNumber("Wrist Bot Limit", Constants.WristConstants.wristLowerLimit);
+    // FOR TUNING
+    SmartDashboard.putNumber("Wrist P Gain", Constants.WristConstants.wristkP);
+    SmartDashboard.putNumber("Wrist I Gain", Constants.WristConstants.wristkI);
+    SmartDashboard.putNumber("Wrist D Gain", Constants.WristConstants.wristkD);
   }
 
   @Override
   public void periodic() {
-    encoderPos = m_wristEncoder.getAbsolutePosition();
-    SmartDashboard.putNumber("Wrist Encoder Postiion: ", encoderPos);
-    
-    pidOut = wristPID.calculate(m_wristEncoder.getAbsolutePosition(), goal);
-    output = pidOut;
-    // This method will be called once per scheduler run
-    if (encoderPos > Constants.WristConstants.wristUpperLimit) {
-      output = 0.0;
-      stop();
-    } else if (encoderPos < Constants.WristConstants.wristLowerLimit) {
-      output = 0.0;
-      stop();
-    }
+    curAngle = m_WristEncoder.getAbsolutePosition() * 360;
 
-    m_wrist.set(ControlMode.PercentOutput, output);
-    // m_wrist.configForwardSoftLimitThreshold();
+    SmartDashboard.putNumber("Wrist Goal Setpoint: ", goal);
+    SmartDashboard.putNumber("Wrist Current Absolute Angle: ", curAngle);
+    SmartDashboard.putNumber("Wrist Applied Output", m_Wrist.getAppliedOutput());
+    SmartDashboard.putNumber("Wrist Encoder Offset: ", m_WristEncoder.getPositionOffset());
 
-    if(m_wristEncoder.getAbsolutePosition() == goal) {
-      output = 0.0;
-      stop();
-    }
+    // FOR VALE TUNING
+    WristTopLimit = SmartDashboard.getNumber("Wrist Top Limit", Constants.WristConstants.wristUpperLimit);
+    WristBotLimit = SmartDashboard.getNumber("Wrist Bot Limit", Constants.WristConstants.wristLowerLimit);
+
+    m_WristPID.setP(SmartDashboard.getNumber("Wrist P Gain", Constants.WristConstants.wristkP));
+    m_WristPID.setI(SmartDashboard.getNumber("Wrist I Gain", Constants.WristConstants.wristkI));
+    m_WristPID.setD(SmartDashboard.getNumber("Wrist D Gain", Constants.WristConstants.wristkD));
+  }
+
+  // Controls a simple motor's position using a SimpleMotorFeedforward
+  // and a ProfiledPIDController
+  public void goToPosition(double goalPosition) {
+    goal = goalPosition;
+    double pidVal = m_WristPID.calculate(curAngle, goalPosition);
+
+    if(passedLimits()) m_Wrist.setVoltage(pidVal);
+    else m_Wrist.set(0);
   }
 
   public void stop() {
-    m_wrist.set(ControlMode.PercentOutput, 0.0);
+    m_Wrist.stopMotor();
   }
 
-  public void setGoal(double desiredPosition) {
-    goal = desiredPosition;
+  public void setWristSpeed(double WristSpeed) {
+    if(passedLimits()) m_Wrist.set(0);
+    else m_Wrist.set(WristSpeed);
   }
 
-  public void setWristSpeed(double wristSpeed) {
-    m_wrist.set(ControlMode.PercentOutput, wristSpeed);
+  public boolean passedLimits() {
+    if(curAngle >= WristTopLimit || curAngle <= WristBotLimit) return true;
+    else return false;
   }
 }
