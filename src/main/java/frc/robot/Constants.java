@@ -15,6 +15,7 @@ package frc.robot;
 public final class Constants {
   public static class ArmJoystickConstants {
     public static final int joystickID = 1;
+    
     public static final int rTrigger = 5;
     public static final int lTrigger = 6;
     public static final int rTab = 3;

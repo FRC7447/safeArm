@@ -67,6 +67,13 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
+    
+    lTrigger = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.lTrigger);
+    rTrigger = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.rTrigger);
+    lTab = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.lTab);
+    rTab = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.rTab);
+
     m_arm = new Arm();
     m_Telescope = new Telescope();
     m_wrist = new Wrist();
@@ -93,13 +100,6 @@ public class RobotContainer {
     moveToShelfIntakeWrist = new MoveWrist(m_wrist, Constants.WristConstants.ShelfIntakePositionWrist);
     moveWristDown = new MoveWristManually(m_wrist, -Constants.WristConstants.WristSpeed);
     moveWristUp = new MoveWristManually(m_wrist, Constants.WristConstants.WristSpeed);
-
-    armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
-    //limelight = new Limelight();
-    lTrigger = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.lTrigger);
-    rTrigger = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.rTrigger);
-    lTab = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.lTab);
-    rTab = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.rTab);
 
     // Configure the trigger bindings
     configureBindings();
