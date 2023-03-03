@@ -98,18 +98,18 @@ public class RobotContainer {
 
     armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
 
-    Trigger button1 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button1);
-    Trigger button2 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button2);
-    Trigger button3 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button3);
-    Trigger button4 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button4);
-    Trigger button5 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button5);
-    Trigger button6 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button6);
-    Trigger button7 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button7);
-    Trigger button8 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button8);
-    Trigger button9 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button9);
-    Trigger button10 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button10);
-    Trigger button11 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button11);
-    Trigger button12 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button12);
+    button1 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button1);
+    button2 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button2);
+    button3 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button3);
+    button4 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button4);
+    button5 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button5);
+    button6 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button6);
+    button7 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button7);
+    button8 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button8);
+    button9 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button9);
+    button10 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button10);
+    button11 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button11);
+    button12 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button12);
     
     // Configure the trigger bindings
     configureBindings();
