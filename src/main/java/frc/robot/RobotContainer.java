@@ -5,11 +5,13 @@
 package frc.robot;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmManually;
+import frc.robot.commands.MoveClawManually;
 import frc.robot.commands.MoveTelescopeManually;
 import frc.robot.commands.MoveTelescopeTo;
 import frc.robot.commands.MoveWrist;
 import frc.robot.commands.MoveWristManually;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Telescope;
 import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -43,6 +45,7 @@ public class RobotContainer {
   Telescope m_Telescope;
   Arm m_arm;
   Wrist m_wrist;
+  Claw m_claw;
 
   MoveArm moveTo3PtArm;
   MoveArm moveTo2PtArm;
@@ -67,11 +70,15 @@ public class RobotContainer {
   MoveWristManually moveWristUp;
   MoveWristManually moveWristDown;
 
+  MoveClawManually intake;
+  MoveClawManually outtake;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_arm = new Arm();
     m_Telescope = new Telescope();
     m_wrist = new Wrist();
+    m_claw = new Claw();
 
     moveTo3PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt3PositionArm);
     moveTo2PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt2PositionArm);
@@ -95,6 +102,9 @@ public class RobotContainer {
     moveToShelfIntakeWrist = new MoveWrist(m_wrist, Constants.WristConstants.ShelfIntakePositionWrist);
     moveWristDown = new MoveWristManually(m_wrist, -0.4);
     moveWristUp = new MoveWristManually(m_wrist, 0.4);
+
+    intake = new MoveClawManually(m_claw, -Constants.ClawConstants.clawSpeed);
+    outtake = new MoveClawManually(m_claw, -Constants.ClawConstants.clawSpeed);
 
     armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
 
@@ -134,8 +144,8 @@ public class RobotContainer {
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     // RESERVED FOR INTAKE AND OUTTAKE
-    button1.whileTrue(null);
-    button2.whileTrue(null);
+    button1.whileTrue(outtake);
+    button2.whileTrue(intake);
 
     // RESERVED FOR PRESET POSITIONS OF ENTIRE ARM
     // Right hand buttons

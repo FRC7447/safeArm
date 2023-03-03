@@ -113,5 +113,8 @@ public final class Constants {
     public static final int analogID = 0;
     public static final int kUltrasonicPingPort = 0;
     public static final int kUltrasonicEchoPort = 0;
+
+    public static final double acceptableDistanceFromObject = 0.0;
+    public static final double clawSpeed = 0.0;
   }
 }

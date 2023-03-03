@@ -6,8 +6,8 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -16,12 +16,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Claw extends SubsystemBase {
-  CANSparkMax m_claw;
+  VictorSPX m_claw;
   AnalogPotentiometer AnalogDistanceSensor;
   Ultrasonic UltraDistanceSensor;
   /** Creates a new Claw. */
   public Claw() {
-    m_claw = new CANSparkMax(Constants.ClawConstants.clawID, MotorType.kBrushless);
+    m_claw = new VictorSPX(Constants.ClawConstants.clawID);
+    m_claw.setInverted(false);
+
     AnalogDistanceSensor = new AnalogPotentiometer(Constants.ClawConstants.analogID, 100, 0);
     UltraDistanceSensor = new Ultrasonic(
       Constants.ClawConstants.kUltrasonicPingPort, 
@@ -30,6 +32,7 @@ public class Claw extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Object in Claw", isObjectInClaw());
     SmartDashboard.putNumber("Ultra in Inches: ", UltraDistanceSensor.getRangeInches());
     SmartDashboard.putNumber("Ultra in Milimeters: ", UltraDistanceSensor.getRangeMM());
     SmartDashboard.putNumber("Analog Distance: ", AnalogDistanceSensor.get());
@@ -37,7 +40,12 @@ public class Claw extends SubsystemBase {
   }
 
   public void setClawSpeed(double clawSpeed) {
-    m_claw.set(clawSpeed);
+    m_claw.set(VictorSPXControlMode.PercentOutput, clawSpeed);
+  }
+
+  public boolean isObjectInClaw() {
+    if(getDistanceFromObject() < Constants.ClawConstants.acceptableDistanceFromObject) return true;
+    else return false;
   }
 
   public double getDistanceFromObject() {
