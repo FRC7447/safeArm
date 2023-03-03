@@ -5,6 +5,7 @@
 package frc.robot;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmManually;
+import frc.robot.commands.MoveClawAuton;
 import frc.robot.commands.MoveClawManually;
 import frc.robot.commands.MoveTelescopeManually;
 import frc.robot.commands.MoveTelescopeTo;
@@ -72,6 +73,8 @@ public class RobotContainer {
 
   MoveClawManually intake;
   MoveClawManually outtake;
+  MoveClawAuton intake_auton;
+  MoveClawAuton outtake_auton;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -104,7 +107,9 @@ public class RobotContainer {
     moveWristUp = new MoveWristManually(m_wrist, 0.4);
 
     intake = new MoveClawManually(m_claw, -Constants.ClawConstants.clawSpeed);
-    outtake = new MoveClawManually(m_claw, -Constants.ClawConstants.clawSpeed);
+    outtake = new MoveClawManually(m_claw, Constants.ClawConstants.clawSpeed);
+    intake_auton = new MoveClawAuton(m_claw, false);
+    outtake_auton = new MoveClawAuton(m_claw, true);
 
     armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
 
@@ -183,6 +188,9 @@ public class RobotContainer {
     // moveToRestArm
     // moveToHumanIntakeArm
     // moveToShelfIntakeArm
+
+    // intake_auton
+    // outtake_auton
   }
 
   /**

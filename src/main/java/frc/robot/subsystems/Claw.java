@@ -43,6 +43,16 @@ public class Claw extends SubsystemBase {
     m_claw.set(VictorSPXControlMode.PercentOutput, clawSpeed);
   }
 
+  public boolean autonClawIntake() {
+    if(!isObjectInClaw()) return true;
+    else return false;
+  }
+
+  public boolean autonClawOuttake() {
+    if(isObjectInClaw()) return false;
+    else return true;
+  }
+
   public boolean isObjectInClaw() {
     if(getDistanceFromObject() < Constants.ClawConstants.acceptableDistanceFromObject) return true;
     else return false;
