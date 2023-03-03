@@ -7,38 +7,34 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Telescope;
 
-public class RetractTelescope extends CommandBase {
+public class MoveTelescopeManually extends CommandBase {
   Telescope m_telescope;
-  boolean finish;
-  /** Creates a new retractTelescope. */
-  public RetractTelescope(Telescope t) {
+  boolean direction;
+  /** Creates a new MoveTelescopeManually. */
+  public MoveTelescopeManually(Telescope t, boolean d) {
     m_telescope = t;
+    direction = d;
     addRequirements(t);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    finish = false;
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_telescope.moveTelescope(false);
+    m_telescope.moveTelescope(direction);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_telescope.stopTelescope();
-    finish = true;
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return finish;
+    return false;
   }
 }

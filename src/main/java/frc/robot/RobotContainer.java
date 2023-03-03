@@ -3,16 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
-import frc.robot.Constants.ArmConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExtendTelescope;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmManually;
+import frc.robot.commands.MoveTelescopeManually;
 import frc.robot.commands.MoveTelescopeTo;
 import frc.robot.commands.MoveWrist;
 import frc.robot.commands.MoveWristManually;
-import frc.robot.commands.RetractTelescope;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Telescope;
 import frc.robot.subsystems.Wrist;
@@ -50,6 +46,8 @@ public class RobotContainer {
   MoveTelescopeTo fullyRetracted;
   MoveTelescopeTo fullyExtended;
   MoveTelescopeTo groundIntakePos;
+  MoveTelescopeManually extendTelescope;
+  MoveTelescopeManually retractTelescope;
 
   MoveWrist moveTo3PtWrist;
   MoveWrist moveTo2PtWrist;
@@ -57,9 +55,6 @@ public class RobotContainer {
   MoveWrist moveToTopWrist;
   MoveWristManually moveWristUp;
   MoveWristManually moveWristDown;
-
-  ExtendTelescope m_ExtendTelescope;
-  RetractTelescope m_RetractTelescope;
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
@@ -83,8 +78,8 @@ public class RobotContainer {
     fullyRetracted = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyRetractedPosition);
     fullyExtended = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyExtendedPosition);
     groundIntakePos = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.groundIntakePosition);
-    m_ExtendTelescope = new ExtendTelescope(m_Telescope);
-    m_RetractTelescope = new RetractTelescope(m_Telescope);
+    extendTelescope = new MoveTelescopeManually(m_Telescope, true);
+    retractTelescope = new MoveTelescopeManually(m_Telescope, false);
 
     moveTo3PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt3PositionWrist);
     moveTo2PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt2PositionWrist);
@@ -122,8 +117,8 @@ public class RobotContainer {
     // // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    lTrigger.onTrue(m_ExtendTelescope);
-    rTrigger.onTrue(m_RetractTelescope);
+    lTrigger.onTrue(extendTelescope);
+    rTrigger.onTrue(retractTelescope);
     lTab.onTrue(moveTo3PtArm);
     rTab.onTrue(moveTo1PtArm);
     
