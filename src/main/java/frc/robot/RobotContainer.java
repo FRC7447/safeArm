@@ -155,19 +155,11 @@ public class RobotContainer {
     m_arm.setArmSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.gripYAxis));
     m_wrist.setWristSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.hatYAxis));
     m_Telescope.moveTelescope(armJoystick.getRawAxis(Constants.ArmJoystickConstants.throttleAxis));
-    
-    //TELEOP COMMANDS TO TEST
-    // moveArmDown
-    // moveArmUp
-    // moveWristDown
-    // moveWristUp
 
     //AUTON COMMANDS TO TEST
     // fullyRetractedTelescope
     // fullyExtendedTelescope
     // groundIntakePositionTelescope
-    // retractTelescope
-    // extendTelescope
 
     // moveTo3PtWrist
     // moveTo2PtWrist
