@@ -138,10 +138,13 @@ public class RobotContainer {
     button2.whileTrue(null);
 
     // RESERVED FOR PRESET POSITIONS OF ENTIRE ARM
+    // Right hand buttons
     button3.onTrue(null);
     button4.onTrue(null);
     button5.onTrue(null);
     button6.onTrue(null);
+
+    // Left hand buttons
     button7.onTrue(null);
     button8.onTrue(null);
     button9.onTrue(null);
