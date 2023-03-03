@@ -23,8 +23,7 @@ public final class Constants {
 
   public static class WristConstants {
     // For Teleop
-    public static final double upWristSpeed = 0.1;
-    public static final double downWristSpeed = -0.1;
+    public static final double WristSpeed = 0.1;
 
     // For auton commands
     public static final double Pt3PositionWrist = 0.0;
@@ -44,8 +43,7 @@ public final class Constants {
 
   public static class ArmConstants {
     // For Teleop
-    public static final double upArmSpeed = 0.1;
-    public static final double downArmSpeed = -0.1;
+    public static final double ArmSpeed = 0.1;
 
     // For auton commands
     public static final double Pt3PositionArm = 0.0;

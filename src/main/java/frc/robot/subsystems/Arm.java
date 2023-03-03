@@ -34,6 +34,7 @@ public class Arm extends SubsystemBase {
     m_arm = new CANSparkMax(Constants.ArmConstants.ArmID, MotorType.kBrushless);
     m_arm.setIdleMode(IdleMode.kBrake);
     m_arm.enableVoltageCompensation(12);
+    m_arm.setInverted(false);
 
     m_armEncoder = new DutyCycleEncoder(Constants.ArmConstants.ArmEncoderID);
     m_armEncoder.setDutyCycleRange(1 / 1025, 1024 / 1025);

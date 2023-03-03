@@ -26,6 +26,7 @@ public class Telescope extends SubsystemBase {
     m_telescope = new TalonSRX(Constants.TelescopeConstants.telescopeID);
     m_telescope.configFactoryDefault(0);
     m_telescope.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+    m_telescope.setInverted(false);
     
     m_telescope.setNeutralMode(NeutralMode.Brake);
     m_telescope.configNeutralDeadband(0.001); // 0.1%
@@ -84,12 +85,9 @@ public class Telescope extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void moveTelescope(boolean lDirection) {
-    if(lDirection) {
-      m_telescope.set(TalonSRXControlMode.PercentOutput, 1.0 * Constants.TelescopeConstants.telescopeSpeed);
-    } else {
-      m_telescope.set(TalonSRXControlMode.PercentOutput, -1.0 * Constants.TelescopeConstants.telescopeSpeed);
-    }
+  public void moveTelescope(double telescopeSpeed) {
+    m_telescope.set(TalonSRXControlMode.PercentOutput, telescopeSpeed);
+
   }
 
   public void extendTelescopeTo(double desiredPosition) {

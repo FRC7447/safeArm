@@ -9,11 +9,11 @@ import frc.robot.subsystems.Telescope;
 
 public class MoveTelescopeManually extends CommandBase {
   Telescope m_telescope;
-  boolean direction;
+  double speed;
   /** Creates a new MoveTelescopeManually. */
-  public MoveTelescopeManually(Telescope t, boolean d) {
+  public MoveTelescopeManually(Telescope t, double s) {
     m_telescope = t;
-    direction = d;
+    speed = s;
     addRequirements(t);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,7 +25,7 @@ public class MoveTelescopeManually extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_telescope.moveTelescope(direction);
+    m_telescope.moveTelescope(speed);
   }
 
   // Called once the command ends or is interrupted.

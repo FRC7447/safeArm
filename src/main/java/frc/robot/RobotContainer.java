@@ -72,21 +72,21 @@ public class RobotContainer {
     moveTo2PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt2PositionArm);
     moveTo1PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt1PositionArm);
     moveToRestArm = new MoveArm(m_arm, Constants.ArmConstants.RestPositionArm);
-    moveArmDown = new MoveArmManually(m_arm, Constants.ArmConstants.downArmSpeed);
-    moveArmUp = new MoveArmManually(m_arm, Constants.ArmConstants.upArmSpeed);
+    moveArmDown = new MoveArmManually(m_arm, -Constants.ArmConstants.ArmSpeed);
+    moveArmUp = new MoveArmManually(m_arm, Constants.ArmConstants.ArmSpeed);
 
     fullyRetracted = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyRetractedPosition);
     fullyExtended = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyExtendedPosition);
     groundIntakePos = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.groundIntakePosition);
-    extendTelescope = new MoveTelescopeManually(m_Telescope, true);
-    retractTelescope = new MoveTelescopeManually(m_Telescope, false);
+    extendTelescope = new MoveTelescopeManually(m_Telescope, Constants.TelescopeConstants.telescopeSpeed);
+    retractTelescope = new MoveTelescopeManually(m_Telescope, -Constants.TelescopeConstants.telescopeSpeed);
 
     moveTo3PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt3PositionWrist);
     moveTo2PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt2PositionWrist);
     moveTo1PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt1PositionWrist);
     moveToTopWrist = new MoveWrist(m_wrist, Constants.WristConstants.TopPositionWrist);
-    moveWristDown = new MoveWristManually(m_wrist, Constants.WristConstants.downWristSpeed);
-    moveWristUp = new MoveWristManually(m_wrist, Constants.WristConstants.upWristSpeed);
+    moveWristDown = new MoveWristManually(m_wrist, -Constants.WristConstants.WristSpeed);
+    moveWristUp = new MoveWristManually(m_wrist, Constants.WristConstants.WristSpeed);
 
     armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
     //limelight = new Limelight();

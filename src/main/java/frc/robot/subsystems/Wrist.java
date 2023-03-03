@@ -27,6 +27,7 @@ public class Wrist extends SubsystemBase {
     m_Wrist = new CANSparkMax(Constants.WristConstants.wristID, MotorType.kBrushless);
     m_Wrist.setIdleMode(IdleMode.kBrake);
     m_Wrist.enableVoltageCompensation(12);
+    m_Wrist.setInverted(false);
 
     m_WristEncoder = new DutyCycleEncoder(Constants.WristConstants.wristEncoderID);
     m_WristEncoder.setDutyCycleRange(1 / 1025, 1024 / 1025);
