@@ -46,6 +46,14 @@ public class Telescope extends SubsystemBase {
     m_telescope.configReverseSoftLimitEnable(false, 0);
 
     resetTelescope();
+
+    // FOR TUNING
+    SmartDashboard.putNumber("Telescope P Gain: ", Constants.TelescopeConstants.telescopeKP);
+    SmartDashboard.putNumber("Telescope I Gain: ", Constants.TelescopeConstants.telescopeKI);
+    SmartDashboard.putNumber("Telescope D Gain: ", Constants.TelescopeConstants.telescopeKD);
+    SmartDashboard.putNumber("Telescope Upper Limit: ", Constants.TelescopeConstants.telescopeUpperLimit);
+    SmartDashboard.putNumber("Telescope Lower Limit: ", Constants.TelescopeConstants.telescopeLowerLimit);
+    SmartDashboard.putBoolean("Enable Telescope Limits: ", false);
   }
 
   @Override
@@ -55,6 +63,24 @@ public class Telescope extends SubsystemBase {
     System.out.println("Sensor Pos:" + m_telescope.getSelectedSensorPosition());
     System.out.println("Out %" + m_telescope.getMotorOutputPercent());
     System.out.println("Out Of Phase:" + m_faults.SensorOutOfPhase);
+
+    // FOR TUNING
+    double kP = SmartDashboard.getNumber("Telescope P Gain: ", Constants.TelescopeConstants.telescopeKP);
+    double kI = SmartDashboard.getNumber("Telescope I Gain: ", Constants.TelescopeConstants.telescopeKI);
+    double kD = SmartDashboard.getNumber("Telescope D Gain: ", Constants.TelescopeConstants.telescopeKD);
+    double topLimit = SmartDashboard.getNumber("Telescope Upper Limit: ", Constants.TelescopeConstants.telescopeUpperLimit);
+    double botLimit = SmartDashboard.getNumber("Telescope Lower Limit: ", Constants.TelescopeConstants.telescopeLowerLimit);
+    boolean eLimits = SmartDashboard.getBoolean("Enable Telescope Limits: ", false);
+
+    m_telescope.configForwardSoftLimitThreshold(topLimit, 0);
+    m_telescope.configReverseSoftLimitThreshold(botLimit, 0);
+    m_telescope.configForwardSoftLimitEnable(eLimits, 0);
+    m_telescope.configReverseSoftLimitEnable(eLimits, 0);
+    m_telescope.config_kP(0, kP);
+    m_telescope.config_kI(0, kI);
+    m_telescope.config_kD(0, kD);
+
+    SmartDashboard.getNumber("Telescope Position: ", m_telescope.getSelectedSensorPosition());
     // This method will be called once per scheduler run
   }
 
