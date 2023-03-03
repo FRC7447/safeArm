@@ -134,8 +134,8 @@ public class RobotContainer {
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     // RESERVED FOR INTAKE AND OUTTAKE
-    button1.onTrue(null);
-    button2.onTrue(null);
+    button1.whileTrue(null);
+    button2.whileTrue(null);
 
     // RESERVED FOR PRESET POSITIONS OF ENTIRE ARM
     button3.onTrue(null);
