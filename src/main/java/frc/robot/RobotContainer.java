@@ -40,12 +40,14 @@ public class RobotContainer {
   MoveArm moveTo2PtArm;
   MoveArm moveTo1PtArm;
   MoveArm moveToRestArm;
+  MoveArm moveToHumanIntakeArm;
+  MoveArm moveToShelfIntakeArm;
   MoveArmManually moveArmUp;
   MoveArmManually moveArmDown;
 
-  MoveTelescopeTo fullyRetracted;
-  MoveTelescopeTo fullyExtended;
-  MoveTelescopeTo groundIntakePos;
+  MoveTelescopeTo fullyRetractedTelescope;
+  MoveTelescopeTo fullyExtendedTelescope;
+  MoveTelescopeTo groundIntakePositionTelescope;
   MoveTelescopeManually extendTelescope;
   MoveTelescopeManually retractTelescope;
 
@@ -53,6 +55,7 @@ public class RobotContainer {
   MoveWrist moveTo2PtWrist;
   MoveWrist moveTo1PtWrist;
   MoveWrist moveToTopWrist;
+  MoveWrist moveToShelfIntakeWrist;
   MoveWristManually moveWristUp;
   MoveWristManually moveWristDown;
   // The robot's subsystems and commands are defined here...
@@ -72,12 +75,14 @@ public class RobotContainer {
     moveTo2PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt2PositionArm);
     moveTo1PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt1PositionArm);
     moveToRestArm = new MoveArm(m_arm, Constants.ArmConstants.RestPositionArm);
+    moveToHumanIntakeArm = new MoveArm(m_arm, Constants.ArmConstants.HumanIntakePositionArm);
+    moveToShelfIntakeArm = new MoveArm(m_arm, Constants.ArmConstants.ShelfIntakePositionArm);
     moveArmDown = new MoveArmManually(m_arm, -Constants.ArmConstants.ArmSpeed);
     moveArmUp = new MoveArmManually(m_arm, Constants.ArmConstants.ArmSpeed);
 
-    fullyRetracted = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyRetractedPosition);
-    fullyExtended = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyExtendedPosition);
-    groundIntakePos = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.groundIntakePosition);
+    fullyRetractedTelescope = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyRetractedPosition);
+    fullyExtendedTelescope = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyExtendedPosition);
+    groundIntakePositionTelescope = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.groundIntakePosition);
     extendTelescope = new MoveTelescopeManually(m_Telescope, Constants.TelescopeConstants.telescopeSpeed);
     retractTelescope = new MoveTelescopeManually(m_Telescope, -Constants.TelescopeConstants.telescopeSpeed);
 
@@ -85,6 +90,7 @@ public class RobotContainer {
     moveTo2PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt2PositionWrist);
     moveTo1PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt1PositionWrist);
     moveToTopWrist = new MoveWrist(m_wrist, Constants.WristConstants.TopPositionWrist);
+    moveToShelfIntakeWrist = new MoveWrist(m_wrist, Constants.WristConstants.ShelfIntakePositionWrist);
     moveWristDown = new MoveWristManually(m_wrist, -Constants.WristConstants.WristSpeed);
     moveWristUp = new MoveWristManually(m_wrist, Constants.WristConstants.WristSpeed);
 
@@ -129,17 +135,20 @@ public class RobotContainer {
     // moveWristUp
 
     //AUTON COMMANDS TO TEST
-    // fullyRetracted
-    // fullyExtended
-    // groundIntakePos
+    // fullyRetractedTelescope
+    // fullyExtendedTelescope
+    // groundIntakePositionTelescope
 
     // moveTo3PtWrist
     // moveTo2PtWrist
     // moveTo1PtWrist
     // moveToTopWrist
+    // moveToShelfIntakeWrist
 
     // moveTo2PtArm
     // moveToRestArm
+    // moveToHumanIntakeArm
+    // moveToShelfIntakeArm
   }
 
   /**

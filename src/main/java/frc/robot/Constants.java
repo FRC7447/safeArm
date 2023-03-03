@@ -30,6 +30,7 @@ public final class Constants {
     public static final double Pt2PositionWrist = 0.0;
     public static final double Pt1PositionWrist = 0.0;
     public static final double TopPositionWrist = 0.0;
+    public static final double ShelfIntakePositionWrist = 0.0;
 
     public static final double wristUpperLimit = 0.0;
     public static final double wristLowerLimit = 0.0;
@@ -50,6 +51,8 @@ public final class Constants {
     public static final double Pt2PositionArm = 0.0;
     public static final double Pt1PositionArm = 0.0;
     public static final double RestPositionArm = 0.0;
+    public static final double HumanIntakePositionArm = 0.0; 
+    public static final double ShelfIntakePositionArm = 0.0;
 
     // ID ASSIGNMENT
     public static final int ArmID = 0;
