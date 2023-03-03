@@ -27,10 +27,18 @@ import edu.wpi.first.wpilibj.Joystick;
 public class RobotContainer {
   Joystick armJoystick;
 
-  Trigger lTrigger;  
-  Trigger rTrigger;
-  Trigger lTab;
-  Trigger rTab;
+  Trigger button1;
+  Trigger button2;
+  Trigger button3;
+  Trigger button4;
+  Trigger button5;
+  Trigger button6;
+  Trigger button7;
+  Trigger button8;
+  Trigger button9;
+  Trigger button10;
+  Trigger button11;
+  Trigger button12;
 
   Telescope m_Telescope;
   Arm m_arm;
@@ -58,22 +66,9 @@ public class RobotContainer {
   MoveWrist moveToShelfIntakeWrist;
   MoveWristManually moveWristUp;
   MoveWristManually moveWristDown;
-  // The robot's subsystems and commands are defined here...
-  // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  // private final CommandXboxController m_driverController =
-  //     new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
-    
-    lTrigger = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.lTrigger);
-    rTrigger = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.rTrigger);
-    lTab = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.lTab);
-    rTab = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.rTab);
-
     m_arm = new Arm();
     m_Telescope = new Telescope();
     m_wrist = new Wrist();
@@ -84,23 +79,38 @@ public class RobotContainer {
     moveToRestArm = new MoveArm(m_arm, Constants.ArmConstants.RestPositionArm);
     moveToHumanIntakeArm = new MoveArm(m_arm, Constants.ArmConstants.HumanIntakePositionArm);
     moveToShelfIntakeArm = new MoveArm(m_arm, Constants.ArmConstants.ShelfIntakePositionArm);
-    moveArmDown = new MoveArmManually(m_arm, -Constants.ArmConstants.ArmSpeed);
-    moveArmUp = new MoveArmManually(m_arm, Constants.ArmConstants.ArmSpeed);
+    moveArmDown = new MoveArmManually(m_arm, -0.4);
+    moveArmUp = new MoveArmManually(m_arm, 0.4);
 
     fullyRetractedTelescope = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyRetractedPosition);
     fullyExtendedTelescope = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.fullyExtendedPosition);
     groundIntakePositionTelescope = new MoveTelescopeTo(m_Telescope, Constants.TelescopeConstants.groundIntakePosition);
-    extendTelescope = new MoveTelescopeManually(m_Telescope, Constants.TelescopeConstants.telescopeSpeed);
-    retractTelescope = new MoveTelescopeManually(m_Telescope, -Constants.TelescopeConstants.telescopeSpeed);
+    extendTelescope = new MoveTelescopeManually(m_Telescope, 0.4);
+    retractTelescope = new MoveTelescopeManually(m_Telescope, -0.4);
 
     moveTo3PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt3PositionWrist);
     moveTo2PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt2PositionWrist);
     moveTo1PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt1PositionWrist);
     moveToTopWrist = new MoveWrist(m_wrist, Constants.WristConstants.TopPositionWrist);
     moveToShelfIntakeWrist = new MoveWrist(m_wrist, Constants.WristConstants.ShelfIntakePositionWrist);
-    moveWristDown = new MoveWristManually(m_wrist, -Constants.WristConstants.WristSpeed);
-    moveWristUp = new MoveWristManually(m_wrist, Constants.WristConstants.WristSpeed);
+    moveWristDown = new MoveWristManually(m_wrist, -0.4);
+    moveWristUp = new MoveWristManually(m_wrist, 0.4);
 
+    armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
+
+    Trigger button1 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button1);
+    Trigger button2 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button2);
+    Trigger button3 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button3);
+    Trigger button4 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button4);
+    Trigger button5 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button5);
+    Trigger button6 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button6);
+    Trigger button7 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button7);
+    Trigger button8 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button8);
+    Trigger button9 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button9);
+    Trigger button10 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button10);
+    Trigger button11 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button11);
+    Trigger button12 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button12);
+    
     // Configure the trigger bindings
     configureBindings();
   }
@@ -123,10 +133,25 @@ public class RobotContainer {
     // // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    lTrigger.onTrue(extendTelescope);
-    rTrigger.onTrue(retractTelescope);
-    lTab.onTrue(moveTo3PtArm);
-    rTab.onTrue(moveTo1PtArm);
+    // RESERVED FOR INTAKE AND OUTTAKE
+    button1.onTrue(null);
+    button2.onTrue(null);
+
+    // RESERVED FOR PRESET POSITIONS OF ENTIRE ARM
+    button3.onTrue(null);
+    button4.onTrue(null);
+    button5.onTrue(null);
+    button6.onTrue(null);
+    button7.onTrue(null);
+    button8.onTrue(null);
+    button9.onTrue(null);
+    button10.onTrue(null);
+    button11.onTrue(null);
+    button12.onTrue(null);
+
+    m_arm.setArmSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.gripYAxis));
+    m_wrist.setWristSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.hatYAxis));
+    m_Telescope.moveTelescope(armJoystick.getRawAxis(Constants.ArmJoystickConstants.throttleAxis));
     
     //TELEOP COMMANDS TO TEST
     // moveArmDown
@@ -138,6 +163,8 @@ public class RobotContainer {
     // fullyRetractedTelescope
     // fullyExtendedTelescope
     // groundIntakePositionTelescope
+    // retractTelescope
+    // extendTelescope
 
     // moveTo3PtWrist
     // moveTo2PtWrist
@@ -145,7 +172,9 @@ public class RobotContainer {
     // moveToTopWrist
     // moveToShelfIntakeWrist
 
+    // moveTo3PtArm
     // moveTo2PtArm
+    // moveTo1PtArm
     // moveToRestArm
     // moveToHumanIntakeArm
     // moveToShelfIntakeArm

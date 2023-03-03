@@ -15,11 +15,26 @@ package frc.robot;
 public final class Constants {
   public static class ArmJoystickConstants {
     public static final int joystickID = 1;
-    
-    public static final int rTrigger = 5;
-    public static final int lTrigger = 6;
-    public static final int rTab = 3;
-    public static final int lTab = 4;
+
+    public static final int gripXAxis = 1;
+    public static final int gripYAxis = 2;
+    public static final int gripTwistAxis = 3;
+    public static final int throttleAxis = 4;
+    public static final int hatXAxis = 5;
+    public static final int hatYAxis = 6;
+
+    public static final int button1 = 1;
+    public static final int button2 = 2;
+    public static final int button3 = 3;
+    public static final int button4 = 4;
+    public static final int button5 = 5;
+    public static final int button6 = 6;
+    public static final int button7 = 7;
+    public static final int button8 = 8;
+    public static final int button9 = 9;
+    public static final int button10 = 10;
+    public static final int button11 = 11;
+    public static final int button12 = 12;
   }
 
   public static class WristConstants {

@@ -112,7 +112,10 @@ public class Arm extends SubsystemBase {
 
   public void setArmSpeed(double armSpeed) {
     if(passedLimits()) m_arm.set(0);
-    else m_arm.set(armSpeed);
+    else {
+      if(armSpeed > 0.3) m_arm.set(Constants.ArmConstants.ArmSpeed);
+      else if(armSpeed < -0.3) m_arm.set(-Constants.ArmConstants.ArmSpeed);
+    }
   }
 
   public boolean passedLimits() {

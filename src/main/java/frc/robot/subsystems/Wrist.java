@@ -81,7 +81,10 @@ public class Wrist extends SubsystemBase {
 
   public void setWristSpeed(double WristSpeed) {
     if(passedLimits()) m_Wrist.set(0);
-    else m_Wrist.set(WristSpeed);
+    else {
+      if(WristSpeed > 0.3) m_Wrist.set(Constants.WristConstants.WristSpeed);
+      else if(WristSpeed < -0.3) m_Wrist.set(-Constants.WristConstants.WristSpeed);
+    }
   }
 
   public boolean passedLimits() {

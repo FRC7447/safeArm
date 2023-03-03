@@ -86,7 +86,10 @@ public class Telescope extends SubsystemBase {
   }
 
   public void moveTelescope(double telescopeSpeed) {
-    m_telescope.set(TalonSRXControlMode.PercentOutput, telescopeSpeed);
+    if(telescopeSpeed > 0.3) m_telescope.set(TalonSRXControlMode.PercentOutput, 
+      Constants.TelescopeConstants.telescopeSpeed);
+    else if(telescopeSpeed < -0.3) m_telescope.set(TalonSRXControlMode.PercentOutput, 
+      Constants.TelescopeConstants.telescopeSpeed);
 
   }
 
