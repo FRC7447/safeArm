@@ -86,9 +86,13 @@ public final class Constants {
 
     public static final double trapezoidMaxVelocity = 1.75;
     public static final double trapezoidMaxAcceleration = 0.75;
+    public static final double trapezoidTimeFreq = 0.05; 
 
     public static final double armUpperLimit = 0.0;
     public static final double armLowerLimit = 0.0;
+
+    public static final float armUpperLimitf = 0.0f;
+    public static final float armLowerLimitf = 0.0f;
   }
 
   public static class TelescopeConstants {
