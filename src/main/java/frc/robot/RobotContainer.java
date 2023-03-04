@@ -160,8 +160,8 @@ public class RobotContainer {
     // m_wrist.setWristSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.hatYAxis))
 
     // RESERVED FOR INTAKE AND OUTTAKE
-    button1.whileTrue(outtake);
-    button2.whileTrue(intake);
+    button1.whileTrue(intake);
+    button2.whileTrue(outtake);
 
     // RESERVED FOR PRESET POSITIONS OF ENTIRE ARM
     // Right hand buttons
