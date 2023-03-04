@@ -52,7 +52,7 @@ public final class Constants {
     public static final double wristUpperLimit = 0.0;
     public static final double wristLowerLimit = 0.0;
 
-    public static final int wristID = 0;
+    public static final int wristID = 15;
     public static final int wristEncoderID = 0;
     public static final double wristkP = 0.0;
     public static final double wristkI = 0.0;
@@ -72,8 +72,7 @@ public final class Constants {
     public static final double ShelfIntakePositionArm = 0.0;
 
     // ID ASSIGNMENT
-    public static final int ArmID = 0;
-    public static final int ArmEncoderID = 0;
+    public static final int ArmID = 17;
 
     // TUNE FEEDFORWARD AND PID VALUES
     public static final double armKP = 0.0; 
@@ -102,7 +101,7 @@ public final class Constants {
     public static final double fullyExtendedPosition = 0.0;
     public static final double groundIntakePosition = 0.0;
 
-    public static final int telescopeID = 0;
+    public static final int telescopeID = 16;
     public static final double telescopeUpperLimit = 0.0;
     public static final double telescopeLowerLimit = 0.0;
     public static final double telescopeSpeed = 0.1;
@@ -113,7 +112,7 @@ public final class Constants {
   }
 
   public static class ClawConstants {
-    public static final int clawID = 0;
+    public static final int clawID = 14;
 
     public static final int analogID = 0;
     public static final int kUltrasonicPingPort = 0;

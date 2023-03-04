@@ -35,8 +35,8 @@ public class Arm extends SubsystemBase {
   double kI = 1e-4;
   double kD = 1; 
   double kIz = 0.5; 
-  double kMaxOutput = 1; 
-  double kMinOutput = -1;
+  double kMaxOutput = 0.4; 
+  double kMinOutput = -0.4;
   /** Creates a new arm. */
   public Arm() {
     m_arm = new CANSparkMax(Constants.ArmConstants.ArmID, MotorType.kBrushless);
