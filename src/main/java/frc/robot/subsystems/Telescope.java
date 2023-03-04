@@ -19,6 +19,7 @@ import frc.robot.Constants;
 public class Telescope extends SubsystemBase {
   TalonSRX m_telescope;
   Encoder telescopeEncoder;
+  double goal = 0.0;
 
   Faults m_faults = new Faults();
   /** Creates a new telescope. */
@@ -81,7 +82,8 @@ public class Telescope extends SubsystemBase {
     m_telescope.config_kI(0, kI);
     m_telescope.config_kD(0, kD);
 
-    SmartDashboard.getNumber("Telescope Position: ", m_telescope.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Telescope Goal Position: ", goal);
+    SmartDashboard.putNumber("Telescope Position: ", m_telescope.getSelectedSensorPosition());
     // This method will be called once per scheduler run
   }
 
@@ -94,6 +96,7 @@ public class Telescope extends SubsystemBase {
   }
 
   public void extendTelescopeTo(double desiredPosition) {
+    goal = desiredPosition;
     m_telescope.set(TalonSRXControlMode.Position, desiredPosition);
   }
 
