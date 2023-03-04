@@ -5,16 +5,16 @@
 package frc.robot;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveArmManually;
-import frc.robot.commands.MoveClawAuton;
-import frc.robot.commands.MoveClawManually;
+// import frc.robot.commands.MoveClawAuton;
+// import frc.robot.commands.MoveClawManually;
 import frc.robot.commands.MoveTelescopeManually;
 import frc.robot.commands.MoveTelescopeTo;
-import frc.robot.commands.MoveWrist;
-import frc.robot.commands.MoveWristManually;
+// import frc.robot.commands.MoveWrist;
+// import frc.robot.commands.MoveWristManually;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Claw;
+// import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Telescope;
-import frc.robot.subsystems.Wrist;
+// import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -49,8 +49,8 @@ public class RobotContainer {
 
   Telescope m_Telescope;
   Arm m_arm;
-  Wrist m_wrist;
-  Claw m_claw;
+  // Wrist m_wrist;
+  // Claw m_claw;
 
   MoveArm moveTo3PtArm;
   MoveArm moveTo2PtArm;
@@ -67,25 +67,25 @@ public class RobotContainer {
   MoveTelescopeManually extendTelescope;
   MoveTelescopeManually retractTelescope;
 
-  MoveWrist moveTo3PtWrist;
-  MoveWrist moveTo2PtWrist;
-  MoveWrist moveTo1PtWrist;
-  MoveWrist moveToTopWrist;
-  MoveWrist moveToShelfIntakeWrist;
-  MoveWristManually moveWristUp;
-  MoveWristManually moveWristDown;
+  // MoveWrist moveTo3PtWrist;
+  // MoveWrist moveTo2PtWrist;
+  // MoveWrist moveTo1PtWrist;
+  // MoveWrist moveToTopWrist;
+  // MoveWrist moveToShelfIntakeWrist;
+  // MoveWristManually moveWristUp;
+  // MoveWristManually moveWristDown;
 
-  MoveClawManually intake;
-  MoveClawManually outtake;
-  MoveClawAuton intake_auton;
-  MoveClawAuton outtake_auton;
+  // MoveClawManually intake;
+  // MoveClawManually outtake;
+  // MoveClawAuton intake_auton;
+  // MoveClawAuton outtake_auton;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_arm = new Arm();
     m_Telescope = new Telescope();
-    m_wrist = new Wrist();
-    m_claw = new Claw();
+    // m_wrist = new Wrist();
+    // m_claw = new Claw();
 
     moveTo3PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt3PositionArm);
     moveTo2PtArm = new MoveArm(m_arm, Constants.ArmConstants.Pt2PositionArm);
@@ -102,18 +102,18 @@ public class RobotContainer {
     extendTelescope = new MoveTelescopeManually(m_Telescope, 0.4);
     retractTelescope = new MoveTelescopeManually(m_Telescope, -0.4);
 
-    moveTo3PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt3PositionWrist);
-    moveTo2PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt2PositionWrist);
-    moveTo1PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt1PositionWrist);
-    moveToTopWrist = new MoveWrist(m_wrist, Constants.WristConstants.TopPositionWrist);
-    moveToShelfIntakeWrist = new MoveWrist(m_wrist, Constants.WristConstants.ShelfIntakePositionWrist);
-    moveWristDown = new MoveWristManually(m_wrist, -0.4);
-    moveWristUp = new MoveWristManually(m_wrist, 0.4);
+    // moveTo3PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt3PositionWrist);
+    // moveTo2PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt2PositionWrist);
+    // moveTo1PtWrist = new MoveWrist(m_wrist, Constants.WristConstants.Pt1PositionWrist);
+    // moveToTopWrist = new MoveWrist(m_wrist, Constants.WristConstants.TopPositionWrist);
+    // moveToShelfIntakeWrist = new MoveWrist(m_wrist, Constants.WristConstants.ShelfIntakePositionWrist);
+    // moveWristDown = new MoveWristManually(m_wrist, -0.4);
+    // moveWristUp = new MoveWristManually(m_wrist, 0.4);
 
-    intake = new MoveClawManually(m_claw, -Constants.ClawConstants.clawSpeed);
-    outtake = new MoveClawManually(m_claw, Constants.ClawConstants.clawSpeed);
-    intake_auton = new MoveClawAuton(m_claw, false);
-    outtake_auton = new MoveClawAuton(m_claw, true);
+    // intake = new MoveClawManually(m_claw, -Constants.ClawConstants.clawSpeed);
+    // outtake = new MoveClawManually(m_claw, Constants.ClawConstants.clawSpeed);
+    // intake_auton = new MoveClawAuton(m_claw, false);
+    // outtake_auton = new MoveClawAuton(m_claw, true);
 
     armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
 
@@ -155,28 +155,28 @@ public class RobotContainer {
     // // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    POV0button.whileTrue(moveWristUp);
-    POV180button.whileTrue(moveWristDown);
+    // POV0button.whileTrue(moveWristUp);
+    // POV180button.whileTrue(moveWristDown);
     // m_wrist.setWristSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.hatYAxis))
 
-    // RESERVED FOR INTAKE AND OUTTAKE
-    button1.whileTrue(intake);
-    button2.whileTrue(outtake);
+    // // RESERVED FOR INTAKE AND OUTTAKE
+    // button1.whileTrue(intake);
+    // button2.whileTrue(outtake);
 
     // RESERVED FOR PRESET POSITIONS OF ENTIRE ARM
     // Right hand buttons
-    button3.onTrue(null);
-    button4.onTrue(null);
-    button5.onTrue(null);
-    button6.onTrue(null);
+    // button3.onTrue(null);
+    // button4.onTrue(null);
+    // button5.onTrue(null);
+    // button6.onTrue(null);
 
-    // Left hand buttons
-    button7.onTrue(null);
-    button8.onTrue(null);
-    button9.onTrue(null);
-    button10.onTrue(null);
-    button11.onTrue(null);
-    button12.onTrue(null);
+    // // Left hand buttons
+    // button7.onTrue(null);
+    // button8.onTrue(null);
+    // button9.onTrue(null);
+    // button10.onTrue(null);
+    // button11.onTrue(null);
+    // button12.onTrue(null);
 
     m_arm.setArmSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.gripYAxis));
     m_Telescope.moveTelescope(armJoystick.getRawAxis(Constants.ArmJoystickConstants.throttleAxis));

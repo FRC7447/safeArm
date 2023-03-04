@@ -73,6 +73,7 @@ public final class Constants {
 
     // ID ASSIGNMENT
     public static final int ArmID = 17;
+    public static final int ArmEncoderID = 0;
 
     // TUNE FEEDFORWARD AND PID VALUES
     public static final double armKP = 0.0; 
