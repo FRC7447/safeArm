@@ -18,6 +18,7 @@ import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -29,6 +30,9 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RobotContainer {
   Joystick armJoystick;
+
+  Trigger POV0button;
+  Trigger POV180button;
 
   Trigger button1;
   Trigger button2;
@@ -113,6 +117,9 @@ public class RobotContainer {
 
     armJoystick = new Joystick(Constants.ArmJoystickConstants.joystickID);
 
+    POV0button = new POVButton(armJoystick, Constants.ArmJoystickConstants.buttonPOV0);
+    POV180button = new POVButton(armJoystick, Constants.ArmJoystickConstants.buttonPOV180);
+
     button1 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button1);
     button2 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button2);
     button3 = new JoystickButton(armJoystick, Constants.ArmJoystickConstants.button3);
@@ -148,6 +155,10 @@ public class RobotContainer {
     // // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
+    POV0button.whileTrue(moveWristUp);
+    POV180button.whileTrue(moveWristDown);
+    // m_wrist.setWristSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.hatYAxis))
+
     // RESERVED FOR INTAKE AND OUTTAKE
     button1.whileTrue(outtake);
     button2.whileTrue(intake);
@@ -168,7 +179,6 @@ public class RobotContainer {
     button12.onTrue(null);
 
     m_arm.setArmSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.gripYAxis));
-    m_wrist.setWristSpeed(armJoystick.getRawAxis(Constants.ArmJoystickConstants.hatYAxis));
     m_Telescope.moveTelescope(armJoystick.getRawAxis(Constants.ArmJoystickConstants.throttleAxis));
 
     //AUTON COMMANDS TO TEST

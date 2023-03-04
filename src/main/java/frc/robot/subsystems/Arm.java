@@ -133,7 +133,7 @@ public class Arm extends SubsystemBase {
 
       // This method will be called once per scheduler run
       m_armPID.setReference(setpoint.position, CANSparkMax.ControlType.kPosition, 0, 
-      m_armFeedforward.calculate(setpoint.position, setpoint.velocity));
+        m_armFeedforward.calculate(setpoint.position, setpoint.velocity));
     }
     
     SmartDashboard.putNumber("Arm SetPoint: ", rawGoal);

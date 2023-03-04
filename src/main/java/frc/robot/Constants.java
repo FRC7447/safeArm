@@ -16,12 +16,13 @@ public final class Constants {
   public static class ArmJoystickConstants {
     public static final int joystickID = 1;
 
-    public static final int gripXAxis = 1;
-    public static final int gripYAxis = 2;
-    public static final int gripTwistAxis = 3;
-    public static final int throttleAxis = 4;
-    public static final int hatXAxis = 5;
-    public static final int hatYAxis = 6;
+    public static final int gripXAxis = 0;
+    public static final int gripYAxis = 1;
+    public static final int gripTwistAxis = 2;
+    public static final int throttleAxis = 3;
+
+    public static final int buttonPOV0 = 0;
+    public static final int buttonPOV180 = 180;
 
     public static final int button1 = 1;
     public static final int button2 = 2;
