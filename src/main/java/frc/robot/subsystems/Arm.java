@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
-import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
@@ -24,8 +23,6 @@ public class Arm extends SubsystemBase {
   CANSparkMax m_arm;
   SparkMaxPIDController m_armPID;
   SparkMaxAbsoluteEncoder m_armEncoder;
-  SparkMaxLimitSwitch m_forwardLimit;
-  SparkMaxLimitSwitch m_reverseLimit;
 
   ArmFeedforward m_armFeedforward;
 
@@ -37,13 +34,15 @@ public class Arm extends SubsystemBase {
   double kP = 0.1; 
   double kI = 1e-4;
   double kD = 1; 
-  double kIz = 0; 
+  double kIz = 0.5; 
   double kMaxOutput = 1; 
   double kMinOutput = -1;
   /** Creates a new arm. */
   public Arm() {
     m_arm = new CANSparkMax(Constants.ArmConstants.ArmID, MotorType.kBrushless);
     m_arm.setIdleMode(IdleMode.kBrake);
+    m_arm.enableVoltageCompensation(12);
+    m_arm.setInverted(false);
 
     m_armEncoder = m_arm.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
     m_armEncoder.setPositionConversionFactor(360);
@@ -68,11 +67,11 @@ public class Arm extends SubsystemBase {
     m_arm.setSoftLimit(SoftLimitDirection.kForward, Constants.ArmConstants.armUpperLimitf);
     m_arm.setSoftLimit(SoftLimitDirection.kReverse, Constants.ArmConstants.armLowerLimitf);
 
-    m_armPID.setP(kP);
-    m_armPID.setI(kI);
-    m_armPID.setD(kD);
-    m_armPID.setIZone(kIz);
-    m_armPID.setOutputRange(kMinOutput, kMaxOutput);
+    m_armPID.setP(kP, 0);
+    m_armPID.setI(kI, 0);
+    m_armPID.setD(kD, 0);
+    m_armPID.setIZone(kIz, 0);
+    m_armPID.setOutputRange(kMinOutput, kMaxOutput, 0);
 
     // display PID coefficients on SmartDashboard
     SmartDashboard.putNumber("P Gain", kP);
@@ -82,10 +81,14 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("Max Output", kMaxOutput);
     SmartDashboard.putNumber("Min Output", kMinOutput);
     SmartDashboard.putNumber("Set Degree", rawGoal);
+    SmartDashboard.putBoolean("Forward Soft Limit Enabled", true);
     SmartDashboard.putNumber("Forward Soft Limit", 
       m_arm.getSoftLimit(SoftLimitDirection.kForward));
+    SmartDashboard.putBoolean("Reverse Soft Limit Enabled", true);
     SmartDashboard.putNumber("Reverse Soft Limit", 
       m_arm.getSoftLimit(SoftLimitDirection.kReverse));
+    SmartDashboard.putNumber("Arm Trapezoid Max Velocity", Constants.ArmConstants.trapezoidMaxVelocity);
+    SmartDashboard.putNumber("Arm Trapezoid Max Acceleration", Constants.ArmConstants.trapezoidMaxAcceleration);
   }
 
   @Override
@@ -107,14 +110,6 @@ public class Arm extends SubsystemBase {
     double max = SmartDashboard.getNumber("Max Output", kMaxOutput);
     double min = SmartDashboard.getNumber("Min Output", kMinOutput);
     SmartDashboard.putNumber("Arm Voltage", m_arm.getBusVoltage());
-
-    rawGoal = SmartDashboard.getNumber("Set Rotations", rawGoal);
-    TrapezoidProfile.State goalPos = new TrapezoidProfile.State(rawGoal, 0);
-    TrapezoidProfile.State curPos = new TrapezoidProfile.State(m_armEncoder.getPosition(), 0);
-    TrapezoidProfile profile = new TrapezoidProfile(m_constraints, goalPos, curPos);
-
-    setpoint = profile.calculate(kDt);
-
     // if PID coefficients on SmartDashboard have changed, write new values to controller
     if((p != kP)) { m_armPID.setP(p); kP = p; }
     if((i != kI)) { m_armPID.setI(i); kI = i; }
@@ -125,9 +120,21 @@ public class Arm extends SubsystemBase {
       kMinOutput = min; kMaxOutput = max; 
     }
 
-    // This method will be called once per scheduler run
-    m_armPID.setReference(setpoint.position, CANSparkMax.ControlType.kPosition, 0, 
+    m_constraints = new TrapezoidProfile.Constraints(
+      SmartDashboard.getNumber("Arm Trapezoid Max Velocity", Constants.ArmConstants.trapezoidMaxVelocity), 
+      SmartDashboard.getNumber("Arm Trapezoid Max Acceleration", Constants.ArmConstants.trapezoidMaxAcceleration));
+    rawGoal = SmartDashboard.getNumber("Set Rotations", rawGoal);
+    if(rawGoal != 0.0) {
+      TrapezoidProfile.State goalPos = new TrapezoidProfile.State(rawGoal, 0);
+      TrapezoidProfile.State curPos = new TrapezoidProfile.State(m_armEncoder.getPosition(), 0);
+      TrapezoidProfile profile = new TrapezoidProfile(m_constraints, goalPos, curPos);
+
+      setpoint = profile.calculate(kDt);
+
+      // This method will be called once per scheduler run
+      m_armPID.setReference(setpoint.position, CANSparkMax.ControlType.kPosition, 0, 
       m_armFeedforward.calculate(setpoint.position, setpoint.velocity));
+    }
     
     SmartDashboard.putNumber("Arm SetPoint: ", rawGoal);
     SmartDashboard.putNumber("Arm Encoder Position", m_armEncoder.getPosition());
